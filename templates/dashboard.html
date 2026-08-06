@@ -1,0 +1,230 @@
+{% extends "base.html" %}
+{% block title %}Career Dashboard{% endblock %}
+
+{% block content %}
+<div class="container-xl">
+
+  <!-- Header -->
+  <div class="mb-4 d-flex flex-wrap align-items-start justify-content-between gap-3">
+    <div>
+      <h2 class="ep-section-title mb-1">
+        <i class="bi bi-speedometer2 text-ep-primary"></i> Career Dashboard
+      </h2>
+      <p class="ep-section-subtitle">
+        {% if profile.get('name') %}
+          Welcome, <strong>{{ profile.name }}</strong>! Here is your personalised career overview.
+        {% else %}
+          <a href="{{ url_for('profile') }}">Complete your profile</a> to see personalised insights.
+        {% endif %}
+      </p>
+    </div>
+    <a href="{{ url_for('profile') }}" class="btn btn-sm btn-outline-primary rounded-pill">
+      <i class="bi bi-pencil"></i> Edit Profile
+    </a>
+  </div>
+
+  <!-- Stat cards -->
+  <div class="row g-3 mb-5">
+    <div class="col-6 col-lg-3">
+      <div class="ep-stat rounded-ep shadow-sm">
+        <div class="ep-stat-value">{{ profile.get('grade') or '—' }}</div>
+        <div class="ep-stat-label">Selected Stream</div>
+      </div>
+    </div>
+    <div class="col-6 col-lg-3">
+      <div class="ep-stat rounded-ep shadow-sm" style="border-color:var(--ep-secondary)">
+        <div class="ep-stat-value" style="color:var(--ep-secondary)">
+          {{ profile.get('interests', [])|length }}
+        </div>
+        <div class="ep-stat-label">Interests Mapped</div>
+      </div>
+    </div>
+    <div class="col-6 col-lg-3">
+      <div class="ep-stat rounded-ep shadow-sm" style="border-color:#198754">
+        <div class="ep-stat-value" style="color:#198754">4</div>
+        <div class="ep-stat-label">Roadmap Phases</div>
+      </div>
+    </div>
+    <div class="col-6 col-lg-3">
+      <div class="ep-stat rounded-ep shadow-sm" style="border-color:#f59e0b">
+        <div class="ep-stat-value" style="color:#f59e0b">AI</div>
+        <div class="ep-stat-label">Advisor Status</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-4">
+
+    <!-- Left column -->
+    <div class="col-lg-7">
+
+      <!-- Skill readiness -->
+      <div class="ep-card p-4 mb-4">
+        <h5 class="fw-bold mb-4"><i class="bi bi-bar-chart-line text-ep-primary"></i> Skill Readiness</h5>
+        {% set skills = [
+          ('Critical Thinking',  82, 'primary'),
+          ('Communication',      68, 'secondary'),
+          ('Digital Literacy',   75, 'info'),
+          ('Numeracy',           60, 'success'),
+          ('Problem Solving',    88, 'warning'),
+        ] %}
+        {% for skill, val, color in skills %}
+          <div class="mb-3">
+            <div class="ep-progress-label d-flex justify-content-between">
+              <span>{{ skill }}</span><span class="fw-semibold">{{ val }}%</span>
+            </div>
+            <div class="progress rounded-pill" style="height:8px;">
+              <div class="progress-bar bg-{{ color }} rounded-pill ep-progress-bar-anim"
+                   role="progressbar"
+                   data-width="{{ val }}"
+                   style="width:0%;transition:width .8s ease;">
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      <!-- Career paths -->
+      <div class="ep-card p-4">
+        <h5 class="fw-bold mb-4"><i class="bi bi-compass text-ep-primary"></i> Recommended Career Paths</h5>
+        {% set stream = profile.get('grade', '') %}
+        {% if stream == 'Science' %}
+          {% set careers = [
+            ('Software Engineer',  'bi-code-slash',     'primary', 'High demand across sectors'),
+            ('Data Scientist',     'bi-graph-up',       'info',    'AI & analytics boom'),
+            ('Research Scientist', 'bi-flask',          'success', 'Academia & biotech'),
+            ('Medical Doctor',     'bi-hospital',       'danger',  'Evergreen profession'),
+          ] %}
+        {% elif stream == 'Commerce' %}
+          {% set careers = [
+            ('Chartered Accountant','bi-calculator',   'success', 'Finance cornerstone'),
+            ('Investment Banker',  'bi-graph-up-arrow','primary', 'High earning potential'),
+            ('Entrepreneur',       'bi-lightning',     'warning', 'Build your own venture'),
+            ('HR Manager',         'bi-people',        'secondary','People & culture focus'),
+          ] %}
+        {% elif stream == 'Arts' %}
+          {% set careers = [
+            ('Civil Services (IAS)','bi-bank',         'primary', 'Governance & leadership'),
+            ('Lawyer',             'bi-briefcase',     'warning', 'Law & justice system'),
+            ('Journalist',         'bi-newspaper',     'info',    'Media & communication'),
+            ('UX Designer',        'bi-palette',       'danger',  'Digital creativity'),
+          ] %}
+        {% else %}
+          {% set careers = [
+            ('Explore Streams',    'bi-compass',       'primary', 'Choose your direction first'),
+            ('Build Your Profile', 'bi-person-plus',   'secondary','Unlock personalized paths'),
+            ('Chat with AI',       'bi-robot',         'info',    'Get instant guidance'),
+            ('View Roadmap',       'bi-map',           'success', 'See your learning plan'),
+          ] %}
+        {% endif %}
+        <div class="row g-3">
+          {% for title, icon, color, desc in careers %}
+            <div class="col-sm-6">
+              <div class="d-flex align-items-start gap-3 p-3 rounded-ep border">
+                <div class="rounded-circle d-flex align-items-center justify-content-center flex-shrink-0"
+                     style="width:40px;height:40px;background:var(--bs-{{ color }}-bg, rgba(59,108,247,.1))">
+                  <i class="bi {{ icon }} text-{{ color }}"></i>
+                </div>
+                <div>
+                  <div class="fw-semibold" style="font-size:.9rem;">{{ title }}</div>
+                  <div class="text-muted" style="font-size:.8rem;">{{ desc }}</div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+    </div><!-- /left -->
+
+    <!-- Right column -->
+    <div class="col-lg-5">
+
+      <!-- Profile summary card -->
+      <div class="ep-card p-4 mb-4">
+        <h5 class="fw-bold mb-3"><i class="bi bi-person-badge text-ep-primary"></i> Profile Summary</h5>
+        {% if profile %}
+          <ul class="list-unstyled mb-0">
+            <li class="mb-2 d-flex gap-2">
+              <i class="bi bi-person text-muted"></i>
+              <span><strong>Name:</strong> {{ profile.get('name') or '—' }}</span>
+            </li>
+            <li class="mb-2 d-flex gap-2">
+              <i class="bi bi-calendar text-muted"></i>
+              <span><strong>Age:</strong> {{ profile.get('age') or '—' }}</span>
+            </li>
+            <li class="mb-2 d-flex gap-2">
+              <i class="bi bi-diagram-3 text-muted"></i>
+              <span><strong>Stream:</strong> {{ profile.get('grade') or '—' }}</span>
+            </li>
+            <li class="mb-2 d-flex gap-2">
+              <i class="bi bi-lightbulb text-muted"></i>
+              <span><strong>Strengths:</strong> {{ profile.get('strengths') or '—' }}</span>
+            </li>
+            {% if profile.get('interests') %}
+              <li class="mb-2 d-flex gap-2">
+                <i class="bi bi-heart text-muted"></i>
+                <span><strong>Interests:</strong>
+                  {% for i in profile.interests %}
+                    <span class="badge bg-primary bg-opacity-10 text-ep-primary me-1">{{ i }}</span>
+                  {% endfor %}
+                </span>
+              </li>
+            {% endif %}
+            {% if profile.get('goals') %}
+              <li class="d-flex gap-2 mt-2">
+                <i class="bi bi-flag text-muted"></i>
+                <span><strong>Goals:</strong> {{ profile.goals }}</span>
+              </li>
+            {% endif %}
+          </ul>
+        {% else %}
+          <p class="text-muted mb-3">No profile data yet.</p>
+          <a href="{{ url_for('profile') }}" class="btn btn-primary btn-sm rounded-pill">
+            Create Profile
+          </a>
+        {% endif %}
+      </div>
+
+      <!-- Quick actions -->
+      <div class="ep-card p-4 mb-4">
+        <h5 class="fw-bold mb-3"><i class="bi bi-lightning text-ep-primary"></i> Quick Actions</h5>
+        <div class="d-grid gap-2">
+          <a href="{{ url_for('chat') }}" class="btn btn-primary rounded-pill">
+            <i class="bi bi-chat-dots"></i> Chat with AI Advisor
+          </a>
+          <a href="{{ url_for('roadmap') }}" class="btn btn-outline-secondary rounded-pill">
+            <i class="bi bi-map"></i> View Learning Roadmap
+          </a>
+          <a href="{{ url_for('streams') }}" class="btn btn-outline-secondary rounded-pill">
+            <i class="bi bi-diagram-3"></i> Explore Streams
+          </a>
+        </div>
+      </div>
+
+      <!-- Tip of the day -->
+      <div class="ep-card p-4" style="border-left:4px solid var(--ep-secondary)">
+        <h6 class="fw-bold mb-2"><i class="bi bi-stars text-ep-secondary"></i> Tip of the Day</h6>
+        <p class="text-muted small mb-0" id="ep-tip">Loading…</p>
+      </div>
+
+    </div><!-- /right -->
+  </div><!-- /row -->
+
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+const tips = [
+  "Consistency beats intensity — 30 focused minutes daily outperforms a 4-hour weekly cram session.",
+  "Talk to professionals in your field of interest. One informational interview can change your perspective.",
+  "Building a portfolio early, even small projects, makes college applications stand out.",
+  "Curiosity is a career skill. Follow topics you love, and the right path often reveals itself.",
+  "Learn to type fast and write clearly — these soft skills pay off in every profession.",
+  "Don't skip mock exams. Simulating test conditions reduces anxiety and reveals gaps.",
+  "Sleep is study time. Your brain consolidates memory during deep sleep — don't sacrifice it.",
+];
+document.getElementById('ep-tip').textContent = tips[Math.floor(Math.random() * tips.length)];
+</script>
+{% endblock %}

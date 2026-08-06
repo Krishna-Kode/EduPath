@@ -1,0 +1,276 @@
+/* ============================================================
+   EduPath — Custom Stylesheet
+   Bootstrap 5.3 companion — light & dark mode aware
+   ============================================================ */
+
+/* ── CSS variables ── */
+:root {
+  --ep-primary:     #3b6cf7;
+  --ep-secondary:   #7c5cd8;
+  --ep-accent:      #0dcaf0;
+  --ep-success:     #198754;
+  --ep-nav-bg:      #ffffff;
+  --ep-nav-border:  #e5e7eb;
+  --ep-card-bg:     #f7f8fa;
+  --ep-footer-bg:   #f1f3f5;
+  --ep-hero-bg:     linear-gradient(135deg, #e8f0fe 0%, #f3e8ff 100%);
+  --ep-text:        #1f2328;
+  --ep-muted:       #57606a;
+  --ep-border:      #e5e7eb;
+  --ep-chat-user:   #3b6cf7;
+  --ep-chat-bot:    #7c5cd8;
+  --ep-shadow:      0 2px 12px rgba(0,0,0,.07);
+}
+
+[data-bs-theme="dark"] {
+  --ep-primary:     #5b8cff;
+  --ep-secondary:   #a07ef8;
+  --ep-nav-bg:      #161b22;
+  --ep-nav-border:  #30363d;
+  --ep-card-bg:     #21262d;
+  --ep-footer-bg:   #161b22;
+  --ep-hero-bg:     linear-gradient(135deg, #0d1117 0%, #1c1040 100%);
+  --ep-text:        #e6edf3;
+  --ep-muted:       #8b949e;
+  --ep-border:      #30363d;
+  --ep-shadow:      0 2px 12px rgba(0,0,0,.35);
+}
+
+/* ── Base ── */
+body {
+  font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--ep-text);
+  background-color: var(--bs-body-bg);
+  transition: background-color .25s, color .25s;
+}
+
+a { color: var(--ep-primary); }
+
+/* ── Navbar ── */
+.ep-navbar {
+  background: var(--ep-nav-bg) !important;
+  border-bottom: 1px solid var(--ep-nav-border);
+}
+
+.ep-navbar .nav-link {
+  border-radius: 6px;
+  padding: .4rem .75rem;
+  font-size: .88rem;
+  color: var(--ep-text);
+  transition: background .15s;
+}
+.ep-navbar .nav-link:hover,
+.ep-navbar .nav-link.active {
+  background: rgba(59,108,247,.1);
+  color: var(--ep-primary);
+}
+
+/* ── Footer ── */
+.ep-footer {
+  background: var(--ep-footer-bg);
+  border-top: 1px solid var(--ep-border);
+}
+
+/* ── Hero ── */
+.ep-hero {
+  background: var(--ep-hero-bg);
+  border-radius: 16px;
+  padding: 3.5rem 2rem;
+}
+
+/* ── Cards ── */
+.ep-card {
+  background: var(--ep-card-bg);
+  border: 1px solid var(--ep-border);
+  border-radius: 12px;
+  box-shadow: var(--ep-shadow);
+  transition: transform .2s, box-shadow .2s;
+}
+.ep-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,0,0,.12);
+}
+
+/* ── Section heading ── */
+.ep-section-title {
+  font-size: 1.55rem;
+  font-weight: 700;
+  letter-spacing: -.3px;
+  color: var(--ep-text);
+}
+.ep-section-subtitle {
+  color: var(--ep-muted);
+  font-size: .95rem;
+}
+
+/* ── Stream cards ── */
+.ep-stream-card {
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color .2s, transform .2s;
+}
+.ep-stream-card.selected,
+.ep-stream-card:hover {
+  border-color: var(--ep-primary);
+  transform: translateY(-4px);
+}
+.ep-stream-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  margin: 0 auto 1rem;
+}
+
+/* ── Roadmap timeline ── */
+.ep-timeline {
+  position: relative;
+  padding-left: 2rem;
+}
+.ep-timeline::before {
+  content: "";
+  position: absolute;
+  left: .6rem;
+  top: 0; bottom: 0;
+  width: 2px;
+  background: var(--ep-border);
+}
+.ep-timeline-item {
+  position: relative;
+  margin-bottom: 2rem;
+}
+.ep-timeline-item::before {
+  content: "";
+  position: absolute;
+  left: -1.45rem;
+  top: .4rem;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--ep-primary);
+  border: 2px solid var(--bs-body-bg);
+}
+.ep-timeline-phase {
+  font-size: .72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  color: var(--ep-muted);
+  margin-bottom: .25rem;
+}
+
+/* ── Dashboard stat cards ── */
+.ep-stat {
+  border-left: 4px solid var(--ep-primary);
+  padding: 1rem 1.25rem;
+  background: var(--ep-card-bg);
+  border-radius: 0 10px 10px 0;
+}
+.ep-stat-value {
+  font-size: 1.9rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--ep-primary);
+}
+.ep-stat-label {
+  font-size: .8rem;
+  color: var(--ep-muted);
+  margin-top: .2rem;
+}
+
+/* ── Chat ── */
+.ep-chat-wrap {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 200px);
+  min-height: 500px;
+  border: 1px solid var(--ep-border);
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--ep-card-bg);
+}
+.ep-chat-header {
+  padding: .9rem 1.25rem;
+  background: var(--ep-primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+}
+.ep-chat-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+}
+.ep-chat-footer {
+  padding: .75rem 1rem;
+  border-top: 1px solid var(--ep-border);
+  background: var(--bs-body-bg);
+}
+.ep-bubble {
+  max-width: 72%;
+  padding: .65rem 1rem;
+  border-radius: 16px;
+  font-size: .9rem;
+  line-height: 1.5;
+  word-break: break-word;
+}
+.ep-bubble-user {
+  background: var(--ep-chat-user);
+  color: #fff;
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+}
+.ep-bubble-bot {
+  background: var(--bs-body-bg);
+  border: 1px solid var(--ep-border);
+  color: var(--ep-text);
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+}
+.ep-bubble-typing {
+  display: flex;
+  gap: 4px;
+  padding: .65rem 1rem;
+}
+.ep-bubble-typing span {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--ep-muted);
+  animation: ep-bounce .9s infinite;
+}
+.ep-bubble-typing span:nth-child(2) { animation-delay: .15s; }
+.ep-bubble-typing span:nth-child(3) { animation-delay: .3s; }
+@keyframes ep-bounce {
+  0%,80%,100% { transform: translateY(0); }
+  40%         { transform: translateY(-6px); }
+}
+
+/* ── Progress bar ── */
+.ep-progress-label {
+  font-size: .8rem;
+  color: var(--ep-muted);
+  margin-bottom: .25rem;
+}
+
+/* ── Utilities ── */
+.text-ep-primary   { color: var(--ep-primary)   !important; }
+.text-ep-secondary { color: var(--ep-secondary) !important; }
+.bg-ep-primary     { background: var(--ep-primary)   !important; }
+.bg-ep-secondary   { background: var(--ep-secondary) !important; }
+.rounded-ep        { border-radius: 12px !important; }
+
+/* ── Responsive tweaks ── */
+@media (max-width: 576px) {
+  .ep-hero { padding: 2rem 1rem; }
+  .ep-bubble { max-width: 88%; }
+  .ep-chat-wrap { height: calc(100vh - 160px); }
+}

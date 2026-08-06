@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+{% block title %}Student Profile{% endblock %}
+
+{% block content %}
+<div class="container-xl">
+  <div class="row justify-content-center">
+    <div class="col-lg-8 col-xl-7">
+
+      <!-- Header -->
+      <div class="mb-4">
+        <h2 class="ep-section-title mb-1">
+          <i class="bi bi-person-lines-fill text-ep-primary"></i> Student Profile
+        </h2>
+        <p class="ep-section-subtitle">
+          Fill in your details so EduPath AI can personalise your roadmap and recommendations.
+        </p>
+      </div>
+
+      <!-- Card wrapper -->
+      <div class="ep-card p-4 p-lg-5">
+        <form method="POST" action="{{ url_for('profile') }}" novalidate>
+
+          <!-- ── Personal Details ── -->
+          <h6 class="fw-bold text-ep-primary mb-3 text-uppercase" style="font-size:.75rem;letter-spacing:.7px;">
+            <i class="bi bi-person"></i> Personal Details
+          </h6>
+          <div class="row g-3 mb-4">
+            <div class="col-sm-6">
+              <label class="form-label" for="name">Full Name <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="name" name="name"
+                     placeholder="e.g. Priya Sharma"
+                     value="{{ profile.get('name','') }}" required>
+            </div>
+            <div class="col-sm-3">
+              <label class="form-label" for="age">Age</label>
+              <input type="number" class="form-control" id="age" name="age"
+                     min="10" max="25" placeholder="16"
+                     value="{{ profile.get('age','') }}">
+            </div>
+            <div class="col-sm-3">
+              <label class="form-label" for="grade">Current Grade / Stream</label>
+              <select class="form-select" id="grade" name="grade">
+                <option value="" disabled {% if not profile.get('grade') %}selected{% endif %}>Select…</option>
+                <option value="Science"  {% if profile.get('grade')=='Science'  %}selected{% endif %}>Science</option>
+                <option value="Commerce" {% if profile.get('grade')=='Commerce' %}selected{% endif %}>Commerce</option>
+                <option value="Arts"     {% if profile.get('grade')=='Arts'     %}selected{% endif %}>Arts</option>
+                <option value="general"  {% if profile.get('grade')=='general'  %}selected{% endif %}>Undecided</option>
+              </select>
+            </div>
+          </div>
+
+          <hr class="my-4">
+
+          <!-- ── Interests ── -->
+          <h6 class="fw-bold text-ep-primary mb-3 text-uppercase" style="font-size:.75rem;letter-spacing:.7px;">
+            <i class="bi bi-heart"></i> Interests
+          </h6>
+          <p class="text-muted small mb-3">Select all that apply.</p>
+          {% set interest_list = [
+            ('technology',   'bi-cpu',            'Technology'),
+            ('medicine',     'bi-hospital',       'Medicine'),
+            ('business',     'bi-briefcase',      'Business'),
+            ('arts_design',  'bi-palette',        'Arts & Design'),
+            ('law',          'bi-bank',           'Law'),
+            ('science',      'bi-flask',          'Science & Research'),
+            ('teaching',     'bi-mortarboard',    'Teaching / Academia'),
+            ('sports',       'bi-trophy',         'Sports'),
+            ('environment',  'bi-tree',           'Environment'),
+            ('media',        'bi-camera-video',   'Media & Journalism'),
+          ] %}
+          <div class="row g-2 mb-4">
+            {% for val, icon, label in interest_list %}
+              <div class="col-6 col-sm-4 col-md-3">
+                <div class="form-check ep-check-card p-2 rounded-ep border
+                  {% if val in profile.get('interests', []) %}border-primary bg-primary bg-opacity-10{% endif %}">
+                  <input class="form-check-input" type="checkbox"
+                         name="interests" value="{{ val }}" id="int_{{ val }}"
+                         {% if val in profile.get('interests', []) %}checked{% endif %}>
+                  <label class="form-check-label d-flex align-items-center gap-2" for="int_{{ val }}">
+                    <i class="bi {{ icon }} text-ep-primary"></i>
+                    <span style="font-size:.85rem;">{{ label }}</span>
+                  </label>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+
+          <hr class="my-4">
+
+          <!-- ── Strengths & Goals ── -->
+          <h6 class="fw-bold text-ep-primary mb-3 text-uppercase" style="font-size:.75rem;letter-spacing:.7px;">
+            <i class="bi bi-lightbulb"></i> Strengths &amp; Goals
+          </h6>
+          <div class="row g-3 mb-4">
+            <div class="col-12">
+              <label class="form-label" for="strengths">Academic Strengths</label>
+              <input type="text" class="form-control" id="strengths" name="strengths"
+                     placeholder="e.g. Mathematics, Public Speaking, Drawing"
+                     value="{{ profile.get('strengths','') }}">
+              <div class="form-text">Comma-separated subjects or skills you excel at.</div>
+            </div>
+            <div class="col-12">
+              <label class="form-label" for="goals">Career Goals / Aspirations</label>
+              <textarea class="form-control" id="goals" name="goals" rows="3"
+                        placeholder="e.g. I want to become a data scientist and work on AI for healthcare.">{{ profile.get('goals','') }}</textarea>
+            </div>
+          </div>
+
+          <!-- Submit -->
+          <div class="d-flex gap-3 pt-2">
+            <button type="submit" class="btn btn-primary rounded-pill px-5">
+              <i class="bi bi-save"></i> Save Profile
+            </button>
+            <a href="{{ url_for('dashboard') }}" class="btn btn-outline-secondary rounded-pill">
+              View Dashboard
+            </a>
+          </div>
+
+        </form>
+      </div><!-- /.ep-card -->
+
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+// Highlight checkbox cards on click
+document.querySelectorAll('.ep-check-card input').forEach(cb => {
+  cb.addEventListener('change', () => {
+    const card = cb.closest('.ep-check-card');
+    card.classList.toggle('border-primary', cb.checked);
+    card.classList.toggle('bg-primary',     cb.checked);
+    card.classList.toggle('bg-opacity-10',  cb.checked);
+  });
+});
+</script>
+{% endblock %}

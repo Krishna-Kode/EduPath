@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="container-xl">
+
+  <!-- Hero -->
+  <div class="ep-hero text-center mb-5">
+    <span class="badge rounded-pill bg-ep-primary mb-3 px-3 py-2" style="font-size:.8rem;">
+      Powered by IBM Watson Orchestrate
+    </span>
+    <h1 class="display-5 fw-bold mb-3">
+      Your AI-Powered Career &amp; Study Guide
+    </h1>
+    <p class="lead text-muted mb-4" style="max-width:560px;margin:0 auto;">
+      EduPath helps students choose the right academic stream, build a personalised
+      learning roadmap, and explore career options — all guided by an intelligent AI.
+    </p>
+    <div class="d-flex flex-wrap justify-content-center gap-3">
+      <a href="{{ url_for('streams') }}" class="btn btn-primary btn-lg rounded-pill px-4">
+        <i class="bi bi-diagram-3"></i> Explore Streams
+      </a>
+      <a href="{{ url_for('chat') }}" class="btn btn-outline-primary btn-lg rounded-pill px-4">
+        <i class="bi bi-chat-dots"></i> Chat with AI
+      </a>
+    </div>
+  </div>
+
+  <!-- Feature cards -->
+  <h2 class="ep-section-title text-center mb-4">What EduPath Offers</h2>
+  <div class="row g-4 mb-5">
+
+    <div class="col-md-4">
+      <div class="ep-card p-4 h-100">
+        <div class="ep-stream-icon bg-primary bg-opacity-10 mb-3">
+          <i class="bi bi-robot text-ep-primary"></i>
+        </div>
+        <h5 class="fw-bold">AI Chatbot</h5>
+        <p class="text-muted mb-3">
+          Talk with the EduPath AI — ask anything about careers, exams, colleges, and study tips.
+        </p>
+        <a href="{{ url_for('chat') }}" class="btn btn-sm btn-outline-primary rounded-pill">
+          Start Chatting <i class="bi bi-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="ep-card p-4 h-100">
+        <div class="ep-stream-icon" style="background:rgba(124,92,216,.1)">
+          <i class="bi bi-map" style="color:var(--ep-secondary)"></i>
+        </div>
+        <h5 class="fw-bold">Personalised Roadmap</h5>
+        <p class="text-muted mb-3">
+          Get a month-by-month learning plan tailored to your stream, interests, and goals.
+        </p>
+        <a href="{{ url_for('roadmap') }}" class="btn btn-sm btn-outline-secondary rounded-pill">
+          View Roadmap <i class="bi bi-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="ep-card p-4 h-100">
+        <div class="ep-stream-icon" style="background:rgba(25,135,84,.1)">
+          <i class="bi bi-speedometer2" style="color:var(--ep-success)"></i>
+        </div>
+        <h5 class="fw-bold">Career Dashboard</h5>
+        <p class="text-muted mb-3">
+          Track your progress, explore career paths, and see skill-readiness scores at a glance.
+        </p>
+        <a href="{{ url_for('dashboard') }}" class="btn btn-sm btn-outline-success rounded-pill">
+          Open Dashboard <i class="bi bi-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="ep-card p-4 h-100">
+        <div class="ep-stream-icon" style="background:rgba(13,202,240,.1)">
+          <i class="bi bi-diagram-3" style="color:var(--ep-accent)"></i>
+        </div>
+        <h5 class="fw-bold">Stream Explorer</h5>
+        <p class="text-muted mb-3">
+          Compare Science, Commerce, and Arts — careers, key exams, and subject requirements.
+        </p>
+        <a href="{{ url_for('streams') }}" class="btn btn-sm btn-outline-info rounded-pill">
+          Explore <i class="bi bi-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="ep-card p-4 h-100">
+        <div class="ep-stream-icon" style="background:rgba(255,193,7,.12)">
+          <i class="bi bi-person-lines-fill" style="color:#f59e0b"></i>
+        </div>
+        <h5 class="fw-bold">Student Profile</h5>
+        <p class="text-muted mb-3">
+          Tell us about yourself — your interests, strengths, and ambitions — and let AI do the rest.
+        </p>
+        <a href="{{ url_for('profile') }}" class="btn btn-sm btn-outline-warning rounded-pill">
+          Build Profile <i class="bi bi-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="ep-card p-4 h-100">
+        <div class="ep-stream-icon" style="background:rgba(220,53,69,.1)">
+          <i class="bi bi-lightbulb" style="color:#dc3545"></i>
+        </div>
+        <h5 class="fw-bold">Smart Recommendations</h5>
+        <p class="text-muted mb-3">
+          IBM Watson analyses your profile and delivers data-driven recommendations in real time.
+        </p>
+        <a href="{{ url_for('chat') }}" class="btn btn-sm btn-outline-danger rounded-pill">
+          Try It <i class="bi bi-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CTA Banner -->
+  <div class="ep-card p-5 text-center mb-4" style="background:linear-gradient(135deg,#3b6cf710,#7c5cd810);">
+    <h3 class="fw-bold mb-2">Ready to map your future?</h3>
+    <p class="text-muted mb-4">Fill in your profile and get a personalised AI-powered career plan in seconds.</p>
+    <a href="{{ url_for('profile') }}" class="btn btn-primary btn-lg rounded-pill px-5">
+      <i class="bi bi-person-plus"></i> Get Started Now
+    </a>
+  </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block title %}AI Chat{% endblock %}
+
+{% block content %}
+<div class="container-xl">
+  <div class="row justify-content-center">
+    <div class="col-lg-9 col-xl-8">
+
+      <!-- Page header -->
+      <div class="mb-4 d-flex align-items-center justify-content-between">
+        <div>
+          <h2 class="ep-section-title mb-1"><i class="bi bi-chat-dots text-ep-primary"></i> EduPath AI Chat</h2>
+          <p class="ep-section-subtitle">Powered by IBM Watson Orchestrate — ask anything about careers, exams &amp; study paths.</p>
+        </div>
+        <span id="ep-chat-status" class="small text-muted">● Disconnected</span>
+      </div>
+
+      <!-- Chat window -->
+      <div class="ep-chat-wrap shadow">
+
+        <!-- Chat header bar -->
+        <div class="ep-chat-header">
+          <div class="rounded-circle bg-white d-flex align-items-center justify-content-center"
+               style="width:36px;height:36px;flex-shrink:0;">
+            <i class="bi bi-robot text-ep-primary"></i>
+          </div>
+          <div>
+            <div class="fw-semibold lh-1">EduPath AI</div>
+            <div style="font-size:.75rem;opacity:.8;">IBM Watson Orchestrate Agent</div>
+          </div>
+        </div>
+
+        <!-- Messages area -->
+        <div class="ep-chat-body" id="ep-chat-body">
+          <!-- Start prompt -->
+          <div class="ep-start-row text-center py-5">
+            <i class="bi bi-robot display-5 text-ep-secondary d-block mb-3"></i>
+            <p class="text-muted mb-4">Click the button below to connect to EduPath AI.</p>
+            <button id="ep-start-btn" class="btn btn-primary rounded-pill px-4">
+              <i class="bi bi-play-circle"></i> Start Conversation
+            </button>
+          </div>
+        </div>
+
+        <!-- Input area -->
+        <div class="ep-chat-footer">
+          <div class="input-group">
+            <input type="text" id="ep-chat-input"
+                   class="form-control rounded-start-pill border-end-0"
+                   placeholder="Type your message…" disabled
+                   aria-label="Chat message">
+            <button id="ep-send-btn" class="btn btn-primary rounded-end-pill px-4" disabled>
+              <i class="bi bi-send-fill"></i>
+            </button>
+          </div>
+          <div class="text-center mt-2">
+            <small class="text-muted">
+              <i class="bi bi-shield-lock"></i> Conversations are session-scoped and not stored permanently.
+            </small>
+          </div>
+        </div>
+
+      </div><!-- /.ep-chat-wrap -->
+
+      <!-- Quick prompts -->
+      <div class="mt-4">
+        <p class="text-muted small fw-semibold mb-2">QUICK PROMPTS</p>
+        <div class="d-flex flex-wrap gap-2" id="ep-quick-prompts">
+          <button class="btn btn-sm btn-outline-secondary rounded-pill ep-quick-prompt">What stream should I choose?</button>
+          <button class="btn btn-sm btn-outline-secondary rounded-pill ep-quick-prompt">How to prepare for JEE?</button>
+          <button class="btn btn-sm btn-outline-secondary rounded-pill ep-quick-prompt">Top careers in Commerce</button>
+          <button class="btn btn-sm btn-outline-secondary rounded-pill ep-quick-prompt">Suggest study resources</button>
+          <button class="btn btn-sm btn-outline-secondary rounded-pill ep-quick-prompt">What is CLAT exam?</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+// Quick prompts — paste text into the input and send
+document.querySelectorAll('.ep-quick-prompt').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const input = document.getElementById('ep-chat-input');
+    if (input && !input.disabled) {
+      input.value = btn.textContent;
+      document.getElementById('ep-send-btn').click();
+    }
+  });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% block title %}Learning Roadmap{% endblock %}
+
+{% block content %}
+<div class="container-xl">
+
+  <!-- Header -->
+  <div class="mb-4 d-flex flex-wrap align-items-start justify-content-between gap-3">
+    <div>
+      <h2 class="ep-section-title mb-1">
+        <i class="bi bi-map text-ep-primary"></i> Learning Roadmap
+      </h2>
+      <p class="ep-section-subtitle">
+        A phase-by-phase plan built for
+        {% if profile.get('name') %}
+          <strong>{{ profile.name }}</strong>
+          ({{ profile.get('grade') or 'General' }} stream).
+        {% else %}
+          your selected stream.
+          <a href="{{ url_for('profile') }}">Complete your profile</a> to personalise it.
+        {% endif %}
+      </p>
+    </div>
+    <div class="d-flex gap-2">
+      <a href="{{ url_for('profile') }}" class="btn btn-sm btn-outline-primary rounded-pill">
+        <i class="bi bi-pencil"></i> Edit Profile
+      </a>
+      <a href="{{ url_for('chat') }}" class="btn btn-sm btn-primary rounded-pill">
+        <i class="bi bi-robot"></i> Ask AI
+      </a>
+    </div>
+  </div>
+
+  <div class="row g-4">
+
+    <!-- Left: dynamic roadmap loaded via JS -->
+    <div class="col-lg-8">
+      <div class="ep-card p-4 p-lg-5">
+        <div id="ep-roadmap-container">
+          <div class="text-center py-5">
+            <div class="spinner-border text-primary" role="status"></div>
+            <p class="text-muted mt-3">Loading your roadmap…</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: tips & tools -->
+    <div class="col-lg-4">
+
+      <!-- Progress tracker -->
+      <div class="ep-card p-4 mb-4">
+        <h5 class="fw-bold mb-3"><i class="bi bi-check2-circle text-ep-primary"></i> Phase Completion</h5>
+        {% for phase, pct, color in [
+            ('Foundation',  25, 'primary'),
+            ('Exploration', 45, 'secondary'),
+            ('Specialise',  15, 'info'),
+            ('Launch',       5, 'warning'),
+        ] %}
+          <div class="mb-3">
+            <div class="ep-progress-label d-flex justify-content-between">
+              <span>{{ phase }}</span><span class="fw-semibold">{{ pct }}%</span>
+            </div>
+            <div class="progress rounded-pill" style="height:6px;">
+              <div class="progress-bar bg-{{ color }} rounded-pill ep-progress-bar-anim"
+                   role="progressbar"
+                   data-width="{{ pct }}"
+                   style="width:0%;transition:width .8s ease;">
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+        <p class="text-muted small mt-3 mb-0">
+          Percentages reflect illustrative progress. Track your milestones in each phase.
+        </p>
+      </div>
+
+      <!-- Resources -->
+      <div class="ep-card p-4 mb-4">
+        <h5 class="fw-bold mb-3"><i class="bi bi-book text-ep-primary"></i> Recommended Resources</h5>
+        <ul class="list-unstyled mb-0">
+          {% set resources = [
+            ('Khan Academy',          'https://www.khanacademy.org', 'bi-play-circle-fill', 'Free lessons across all subjects'),
+            ('NCERT Textbooks',       'https://ncert.nic.in',        'bi-book-half',        'Official curriculum material'),
+            ('Coursera',              'https://www.coursera.org',    'bi-mortarboard',      'University-grade online courses'),
+            ('BYJU\'S',               'https://byjus.com',           'bi-laptop',           'Interactive learning platform'),
+            ('Unacademy',             'https://unacademy.com',       'bi-camera-video',     'Competitive exam prep'),
+          ] %}
+          {% for name, url, icon, desc in resources %}
+            <li class="mb-3 d-flex align-items-start gap-3">
+              <i class="bi {{ icon }} text-ep-primary mt-1"></i>
+              <div>
+                <a href="{{ url }}" target="_blank" rel="noopener" class="fw-semibold text-ep-primary"
+                   style="font-size:.88rem;">{{ name }}</a>
+                <div class="text-muted" style="font-size:.78rem;">{{ desc }}</div>
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <!-- Download hint -->
+      <div class="ep-card p-4 d-flex align-items-start gap-3" style="border-left:4px solid var(--ep-primary)">
+        <i class="bi bi-download text-ep-primary fs-4 mt-1"></i>
+        <div>
+          <div class="fw-semibold mb-1">Get AI-Personalised Plan</div>
+          <p class="text-muted small mb-2">
+            Chat with the EduPath AI to receive a more detailed, personalised roadmap based on your goals.
+          </p>
+          <a href="{{ url_for('chat') }}" class="btn btn-sm btn-primary rounded-pill">
+            <i class="bi bi-robot"></i> Chat Now
+          </a>
+        </div>
+      </div>
+
+    </div><!-- /right -->
+  </div><!-- /row -->
+
+</div>
+{% endblock %}

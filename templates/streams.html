@@ -1,0 +1,159 @@
+{% extends "base.html" %}
+{% block title %}Stream Selection{% endblock %}
+
+{% block content %}
+<div class="container-xl">
+
+  <!-- Header -->
+  <div class="text-center mb-5">
+    <h2 class="ep-section-title mb-2">
+      <i class="bi bi-diagram-3 text-ep-primary"></i> Choose Your Academic Stream
+    </h2>
+    <p class="ep-section-subtitle" style="max-width:560px;margin:0 auto;">
+      Selecting the right stream is the most important academic decision you'll make.
+      Explore each option below — click a card to reveal careers, exams, and subjects.
+    </p>
+  </div>
+
+  <!-- Stream cards row -->
+  <div class="row g-4 justify-content-center mb-2">
+
+    <!-- Science -->
+    <div class="col-md-4">
+      <div class="ep-card ep-stream-card p-4 text-center h-100" data-stream="Science">
+        <div class="ep-stream-icon mx-auto mb-3" style="background:rgba(59,108,247,.12)">
+          <i class="bi bi-flask text-ep-primary fs-3"></i>
+        </div>
+        <h4 class="fw-bold mb-2">Science</h4>
+        <p class="text-muted small mb-3">
+          Physics, Chemistry, Mathematics / Biology. Gateway to engineering, medicine, research, and technology careers.
+        </p>
+        <div class="d-flex flex-wrap justify-content-center gap-2">
+          <span class="badge bg-primary bg-opacity-10 text-ep-primary">JEE</span>
+          <span class="badge bg-primary bg-opacity-10 text-ep-primary">NEET</span>
+          <span class="badge bg-primary bg-opacity-10 text-ep-primary">BITSAT</span>
+        </div>
+        <div class="mt-3 small text-muted">
+          <i class="bi bi-cursor-fill text-ep-primary"></i> Click to explore
+        </div>
+      </div>
+    </div>
+
+    <!-- Commerce -->
+    <div class="col-md-4">
+      <div class="ep-card ep-stream-card p-4 text-center h-100" data-stream="Commerce">
+        <div class="ep-stream-icon mx-auto mb-3" style="background:rgba(25,135,84,.12)">
+          <i class="bi bi-graph-up-arrow text-success fs-3"></i>
+        </div>
+        <h4 class="fw-bold mb-2">Commerce</h4>
+        <p class="text-muted small mb-3">
+          Accounts, Economics, Business Studies. Leads to finance, entrepreneurship, banking, and management careers.
+        </p>
+        <div class="d-flex flex-wrap justify-content-center gap-2">
+          <span class="badge bg-success bg-opacity-10 text-success">CA Foundation</span>
+          <span class="badge bg-success bg-opacity-10 text-success">IPMAT</span>
+          <span class="badge bg-success bg-opacity-10 text-success">CUET</span>
+        </div>
+        <div class="mt-3 small text-muted">
+          <i class="bi bi-cursor-fill text-success"></i> Click to explore
+        </div>
+      </div>
+    </div>
+
+    <!-- Arts -->
+    <div class="col-md-4">
+      <div class="ep-card ep-stream-card p-4 text-center h-100" data-stream="Arts">
+        <div class="ep-stream-icon mx-auto mb-3" style="background:rgba(124,92,216,.12)">
+          <i class="bi bi-palette text-ep-secondary fs-3"></i>
+        </div>
+        <h4 class="fw-bold mb-2">Arts &amp; Humanities</h4>
+        <p class="text-muted small mb-3">
+          History, Political Science, Psychology, Literature. Opens paths in law, civil services, design, and media.
+        </p>
+        <div class="d-flex flex-wrap justify-content-center gap-2">
+          <span class="badge bg-opacity-10 text-ep-secondary" style="background:rgba(124,92,216,.1)">CLAT</span>
+          <span class="badge bg-opacity-10 text-ep-secondary" style="background:rgba(124,92,216,.1)">UPSC</span>
+          <span class="badge bg-opacity-10 text-ep-secondary" style="background:rgba(124,92,216,.1)">NID/NIFT</span>
+        </div>
+        <div class="mt-3 small text-muted">
+          <i class="bi bi-cursor-fill text-ep-secondary"></i> Click to explore
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Dynamic detail panel rendered by JS -->
+  <div id="ep-stream-detail" class="mb-4"></div>
+
+  <!-- Comparison table -->
+  <h3 class="ep-section-title text-center mb-4 mt-5">Side-by-Side Comparison</h3>
+  <div class="ep-card p-0 mb-5 overflow-hidden">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead class="table-dark">
+          <tr>
+            <th style="width:18%">Factor</th>
+            <th class="text-center"><i class="bi bi-flask"></i> Science</th>
+            <th class="text-center"><i class="bi bi-graph-up-arrow"></i> Commerce</th>
+            <th class="text-center"><i class="bi bi-palette"></i> Arts</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="fw-semibold text-muted small text-uppercase">Core Subjects</td>
+            <td class="text-center small">Physics, Chemistry, Maths/Bio</td>
+            <td class="text-center small">Accounts, Economics, BST</td>
+            <td class="text-center small">History, Pol Sci, Psychology</td>
+          </tr>
+          <tr>
+            <td class="fw-semibold text-muted small text-uppercase">Difficulty</td>
+            <td class="text-center"><span class="badge bg-danger">High</span></td>
+            <td class="text-center"><span class="badge bg-warning text-dark">Medium</span></td>
+            <td class="text-center"><span class="badge bg-success">Flexible</span></td>
+          </tr>
+          <tr>
+            <td class="fw-semibold text-muted small text-uppercase">Avg. Starting Salary</td>
+            <td class="text-center small">₹4–12 LPA</td>
+            <td class="text-center small">₹3–10 LPA</td>
+            <td class="text-center small">₹2–8 LPA</td>
+          </tr>
+          <tr>
+            <td class="fw-semibold text-muted small text-uppercase">Top Entrance Exams</td>
+            <td class="text-center small">JEE, NEET, BITSAT</td>
+            <td class="text-center small">IPMAT, CA Foundation, CUET</td>
+            <td class="text-center small">CLAT, UPSC, NID</td>
+          </tr>
+          <tr>
+            <td class="fw-semibold text-muted small text-uppercase">Best For</td>
+            <td class="text-center small">Analytical, curious minds</td>
+            <td class="text-center small">Business-oriented thinkers</td>
+            <td class="text-center small">Creative & expressive learners</td>
+          </tr>
+          <tr>
+            <td class="fw-semibold text-muted small text-uppercase">Job Market</td>
+            <td class="text-center"><span class="badge bg-primary bg-opacity-10 text-ep-primary">Very Strong</span></td>
+            <td class="text-center"><span class="badge bg-success bg-opacity-10 text-success">Strong</span></td>
+            <td class="text-center"><span class="badge bg-secondary bg-opacity-10 text-secondary">Growing</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="ep-card p-4 text-center mb-4" style="background:var(--ep-hero-bg)">
+    <h4 class="fw-bold mb-2">Still unsure? Ask the AI!</h4>
+    <p class="text-muted mb-3">Describe your interests and strengths to the EduPath AI and get a personalised stream recommendation.</p>
+    <div class="d-flex flex-wrap justify-content-center gap-3">
+      <a href="{{ url_for('chat') }}" class="btn btn-primary rounded-pill px-4">
+        <i class="bi bi-chat-dots"></i> Chat with EduPath AI
+      </a>
+      <a href="{{ url_for('profile') }}" class="btn btn-outline-primary rounded-pill px-4">
+        <i class="bi bi-person-plus"></i> Build My Profile
+      </a>
+    </div>
+  </div>
+
+</div>
+{% endblock %}
